@@ -9,7 +9,7 @@ This web browser is Qt-based and Webkit-based browser for a system with NVRAM.
  $ ./qt-opensource-linux-x64-5.4.2.run
 
 ### 2. Get codes from this repository.
- $ git clone https://github.com/KyusikKim/NVRAM_KWU
+ $ git clone https://github.com/KyusikKim/ILB
 
 ### 3. Make a Makefile for this browser.
  $ qmake
