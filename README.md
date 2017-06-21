@@ -35,7 +35,7 @@
 #### with X libraies: you cannot use features of instantly launchable browser. 
  - $ ilb [URL_OF_DEFAULT_PAGE]
 #### without X libraries (i.e. booting linux with console mode): you can use the features.
- $ sudo ilb_fb [URL_FOR_DEFAULT_PAGE] 
+ - $ sudo ilb_fb [URL_FOR_DEFAULT_PAGE] 
 
 - - - - - 
 # Contact us
