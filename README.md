@@ -23,7 +23,8 @@ This web browser is Qt-based and Webkit-based browser for a system with NVRAM.
  $ qmake
 
 ### 5. Compile and Install the browser.
- $ make					  
+ $ cd ILB  
+ $ make	  
  $ sudo make install
 
 ### 6. Run the browser.
