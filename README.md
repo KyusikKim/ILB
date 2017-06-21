@@ -24,10 +24,10 @@
  - $ sudo cp ILB/qt_config/default.conf /usr/share/qtchooser
 
 ### 4. Make a Makefile for this browser
+ - $ cd ILB  
  - $ qmake
 
 ### 5. Compile and Install the browser
- - $ cd ILB  
  - $ make	  
  - $ sudo make install
 
