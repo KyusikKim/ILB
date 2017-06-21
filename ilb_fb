@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo $(/opt/ilb/browser -plugin evdevkeyboard -plugin evdevmouse -platform linuxfb $1)
