@@ -17,13 +17,13 @@ This web browser is Qt-based and Webkit-based browser for a system with NVRAM.
 
 ### 3. Copy a Qt configuration file
 #### For using qt5 binaries instead of qt4 binaries, you must copy a configuration file.
- $ cp ILB/qt_config/default.conf /usr/share/qtchooser
+ $ sudo cp ILB/qt_config/default.conf /usr/share/qtchooser
 
 ### 4. Make a Makefile for this browser.
  $ qmake
 
 ### 5. Compile and Install the browser.
- $ make  
+ $ make					  
  $ sudo make install
 
 ### 6. Run the browser.
