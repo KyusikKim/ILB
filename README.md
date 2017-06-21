@@ -37,7 +37,9 @@ This web browser is Qt-based and Webkit-based browser for a system with NVRAM.
 #### without X libraries (i.e. booting linux with console mode): you can use the features.
  $ sudo ilb_fb [URL_FOR_DEFAULT_PAGE] 
 
+- - - - - 
 # Contact us
 ## System Software Lab., Kwangwoon University, South Korea.
  Site: [sswlab.kw.ac.kr](https://sswlab.kw.ac.kr)
+
 
