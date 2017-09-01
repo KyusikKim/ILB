@@ -3,7 +3,7 @@
 #include <pthread.h>
 
 #define FBC_DEV_FB		"/dev/fb0"
-#define FBC_DIR_FBCACHE	"/root/.ilb_cache"
+#define FBC_DIR_FBCACHE	"/home/root/.ilb_cache"
 
 #define FBC_MAX_URL_REQUESTED 1024
 #define FBC_MAX_PATH 1024
@@ -17,6 +17,7 @@ extern pthread_t fbc_t_capturer;
 
 extern char fbc_url_requested[FBC_MAX_URL_REQUESTED];
 extern bool fbc_failed;
+extern pthread_mutex_t mtx_fbc_failed;
 
 void fbc_debug(const char id[], const char msg[]);
 void fbc_debug_time(const char id[]);

@@ -54,7 +54,8 @@
 BrowserApplication *application;
 
 char fbc_url_requested[FBC_MAX_URL_REQUESTED] = {'\0', };	
-bool fbc_failed;
+bool fbc_failed = true;
+pthread_mutex_t mtx_fbc_failed = PTHREAD_MUTEX_INITIALIZER;
 
 int fbc_tty_settings[2];
 
@@ -102,7 +103,9 @@ void *tfunc_fbcapture(void *data)
 #ifdef FBC_DEBUG_ENABLED
 		fbc_debug(__func__, "Failed to restore bitmap.");
 #endif
+		pthread_mutex_lock(&mtx_fbc_failed);
 		fbc_failed = true;
+		pthread_mutex_unlock(&mtx_fbc_failed);
 	}
 	else
 	{
@@ -110,7 +113,9 @@ void *tfunc_fbcapture(void *data)
 		fbc_debug_time("WebPageLoaded");
 		fflush(stdout);
 #endif
+		pthread_mutex_lock(&mtx_fbc_failed);
 		fbc_failed = false;
+		pthread_mutex_unlock(&mtx_fbc_failed);
 	}
 
 	while(true)

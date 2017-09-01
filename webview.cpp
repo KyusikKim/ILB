@@ -263,7 +263,12 @@ void WebView::loadFinished()
 
 #ifdef FBC_DEBUG_TIME_ENABLED
 #ifdef FBC_ENABLED
-	if(fbc_failed == true)
+	
+	bool val;
+	pthread_mutex_lock(&mtx_fbc_failed);
+	val = fbc_failed;
+	pthread_mutex_unlock(&mtx_fbc_failed);
+	if(val == true)
 	{
 #endif
 		fbc_debug_time("WebPageLoaded");

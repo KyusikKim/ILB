@@ -63,6 +63,8 @@
 
 #include <QtCore/QDebug>
 
+#include "fbc.h"
+
 DownloadManager *BrowserApplication::s_downloadManager = 0;
 HistoryManager *BrowserApplication::s_historyManager = 0;
 NetworkAccessManager *BrowserApplication::s_networkAccessManager = 0;
@@ -401,7 +403,16 @@ BrowserMainWindow *BrowserApplication::newMainWindow()
 #ifdef FBC_ENABLED
 	browser->ensurePolished();
 	browser->setWindowState(Qt::WindowFullScreen);
-	browser->setVisible(false);
+	
+	bool val;
+	pthread_mutex_lock(&mtx_fbc_failed);
+	val = fbc_failed;
+	pthread_mutex_unlock(&mtx_fbc_failed);
+
+	if(fbc_failed)
+		browser->setVisible(true);
+	else
+		browser->setVisible(false);
 #else
 	browser->showFullScreen();
 #endif
