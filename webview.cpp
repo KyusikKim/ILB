@@ -255,6 +255,7 @@ void WebView::setProgress(int progress)
 
 void WebView::loadFinished()
 {
+	bool val;
     if (100 != m_progress) {
         qWarning() << "Received finished signal while progress is still:" << progress()
                    << "Url:" << url();
@@ -263,8 +264,6 @@ void WebView::loadFinished()
 
 #ifdef FBC_DEBUG_TIME_ENABLED
 #ifdef FBC_ENABLED
-	
-	bool val;
 	pthread_mutex_lock(&mtx_fbc_failed);
 	val = fbc_failed;
 	pthread_mutex_unlock(&mtx_fbc_failed);
@@ -279,8 +278,15 @@ void WebView::loadFinished()
 #endif
 
 #ifdef FBC_ENABLED
-	pthread_kill(pthread_self(), SIGUSR1);	/** fbc: send SIGUSR1 to the restore thread **/ 
-	pthread_kill(fbc_t_capturer, SIGUSR1);
+	pthread_mutex_lock(&mtx_fbc_restored);
+	val = fbc_restored;
+	pthread_mutex_unlock(&mtx_fbc_restored);
+
+	if(!val)
+	{   
+		pthread_kill(pthread_self(), SIGUSR1);	/** fbc: send SIGUSR1 to the restore thread **/ 
+		pthread_kill(fbc_t_capturer, SIGUSR1);
+	}   
 #endif
 }
 

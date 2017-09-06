@@ -16,8 +16,12 @@ extern pthread_t fbc_t_capturer;
 #endif
 
 extern char fbc_url_requested[FBC_MAX_URL_REQUESTED];
+
 extern bool fbc_failed;
+extern bool fbc_restored;
+
 extern pthread_mutex_t mtx_fbc_failed;
+extern pthread_mutex_t mtx_fbc_restored;
 
 void fbc_debug(const char id[], const char msg[]);
 void fbc_debug_time(const char id[]);

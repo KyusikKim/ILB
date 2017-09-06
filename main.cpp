@@ -54,8 +54,12 @@
 BrowserApplication *application;
 
 char fbc_url_requested[FBC_MAX_URL_REQUESTED] = {'\0', };	
+
 bool fbc_failed = true;
+bool fbc_restored = false;
+
 pthread_mutex_t mtx_fbc_failed = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mtx_fbc_restored = PTHREAD_MUTEX_INITIALIZER;
 
 int fbc_tty_settings[2];
 
@@ -130,7 +134,7 @@ void sigH_fbcapture(int signo)
 	{
 		if(pthread_self() == fbc_t_capturer) /** fbc: in restoration thread **/
 		{
-			usleep(200000); /** fbc: sleeping during 200ms to wait painting **/
+			usleep(500000); /** fbc: sleeping during 500ms to wait painting **/
 #ifdef FBC_DEBUG_ENABLED
 			if(!fbc_store(fbc_url_requested))
 			{
@@ -140,6 +144,18 @@ void sigH_fbcapture(int signo)
 #else
 			fbc_store(fbc_url_requested);
 #endif
+			bool var;
+
+			pthread_mutex_lock(&mtx_fbc_restored);
+			var = fbc_restored;
+			pthread_mutex_unlock(&mtx_fbc_restored);
+
+			if(!var)
+			{
+				pthread_mutex_lock(&mtx_fbc_restored);
+				fbc_restored = true;
+				pthread_mutex_unlock(&mtx_fbc_restored);
+			}
 		}
 
 		else /** fbc: in web page processing thread **/
